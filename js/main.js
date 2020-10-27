@@ -71,11 +71,16 @@ const checkAuth = () => {
 // Логин
 const authorization = (evt) => {
     evt.preventDefault();
-    login = loginInput.value;
+    login = loginInput.value.trim();
+    pass = passInput.value.trim();
+
+    if (!login || !pass) {
+        alert(`Необходимо ввести логин и пароль`);
+        return;
+    }
 
     localStorage.setItem('delivery', login);
 
-    pass = passInput.value;
     isAuth = true;
     toggleModalAuth();
     loginForm.reset();
