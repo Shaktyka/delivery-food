@@ -1,4 +1,7 @@
 window.disableScroll = () => {
+
+    const scrollWidth = window.innerWidth - document.body.offsetWidth;
+
     document.body.dbScrollY = window.scrollY;
 
     document.body.style.cssText = `
@@ -9,6 +12,7 @@ window.disableScroll = () => {
       width: 100%;
       height: 100vh;
       overflow: hidden;
+      padding-right: ${scrollWidth}px;
     `;
 };
 
