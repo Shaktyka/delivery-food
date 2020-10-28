@@ -41,21 +41,6 @@ const renderPizzaCards = () => {
     cardsMenu.insertAdjacentHTML(`beforeend`, pizzaCard);
 };
 
-// Показать товары
-const openGoods = (evt) => {
-    const target = evt.target;
-    const restaurant = target.closest(`.card-restaurant`);
-
-    if (restaurant) {
-        // Прячем/показываем нужные модули
-        containerPromo.classList.add(`hide`);
-        restaurants.classList.add(`hide`);
-        menu.classList.remove(`hide`);
-
-        renderPizzaCards(); // Рендерим список пиццы
-    }
-};
-
 // Добавляет карточку товара
 const renderRestaurantCard = () => {
     return `<a class="card card-restaurant">
@@ -74,6 +59,28 @@ const renderRestaurantCard = () => {
             </div>
         </div>
       </a>`;
+};
+
+// Показать товары
+const openGoods = (evt) => {
+
+    const target = evt.target;
+    const restaurant = target.closest(`.card-restaurant`);
+
+    if (restaurant) {
+        // Проверяем авторизацию
+        if (!isAuth) {
+            toggleModalAuth();
+            return;
+        }
+
+        // Прячем/показываем нужные модули
+        containerPromo.classList.add(`hide`);
+        restaurants.classList.add(`hide`);
+        menu.classList.remove(`hide`);
+
+        renderPizzaCards(); // Рендерим список пиццы
+    }
 };
 
 // Рендерит все карточки ресторанов

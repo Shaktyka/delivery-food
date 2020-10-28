@@ -49,27 +49,6 @@ const logout = () => {
     checkAuth();
 };
 
-// Пользователь авторизован
-const isAuthorized = () => {
-    console.log('Авторизован');
-
-    authBtn.style.display = `none`;
-    buttonOut.style.display = `block`;
-    userName.textContent = login;
-    userName.style.display = `inline`;
-
-    buttonOut.addEventListener(`click`, logout);
-};
-
-// Проверка авторизации
-const checkAuth = () => {
-    if (isAuth) {
-        isAuthorized();
-    } else {
-        isNotAuthorized();
-    }
-};
-
 // Логин
 const authorization = (evt) => {
     evt.preventDefault();
@@ -109,6 +88,27 @@ const isNotAuthorized = () => {
     loginForm.addEventListener(`submit`, authorization);
 
     modalAuth.addEventListener(`click`, modalAuthClickHandler);
+};
+
+// Пользователь авторизован
+const isAuthorized = () => {
+    console.log('Авторизован');
+
+    authBtn.style.display = `none`;
+    buttonOut.style.display = `block`;
+    userName.textContent = login;
+    userName.style.display = `inline`;
+
+    buttonOut.addEventListener(`click`, logout);
+};
+
+// Проверка авторизации
+const checkAuth = () => {
+    if (isAuth) {
+        isAuthorized();
+    } else {
+        isNotAuthorized();
+    }
 };
 
 checkAuth();
