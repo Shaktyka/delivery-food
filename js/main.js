@@ -92,6 +92,12 @@ const authorization = (evt) => {
     checkAuth();
 };
 
+const modalAuthClickHandler = (evt) => {
+    if (evt.target.classList.contains(`is-open`)) {
+        toggleModalAuth();
+    }
+};
+
 // Пользователь НЕ авторизован
 const isNotAuthorized = () => {
     console.log('Не авторизован');
@@ -99,6 +105,8 @@ const isNotAuthorized = () => {
     authBtn.addEventListener(`click`, toggleModalAuth);
     closeAuth.addEventListener(`click`, closeModalAuth);
     loginForm.addEventListener(`submit`, authorization);
+
+    modalAuth.addEventListener(`click`, modalAuthClickHandler);
 };
 
 checkAuth();
