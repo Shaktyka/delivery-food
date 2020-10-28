@@ -26,13 +26,17 @@ close.addEventListener(`click`, toggleModal);
 const toggleModalAuth = (evt) => {
     modalAuth.classList.toggle(`is-open`);
     if (modalAuth.classList.contains(`is-open`)) {
+        disableScroll();
         loginInput.focus();
+    } else {
+        enableScroll();
     }
 };
 
 // Закрываем модалку авторизации
 const closeModalAuth = () => {
     modalAuth.classList.remove(`is-open`);
+    enableScroll();
 };
 
 // Логаут
