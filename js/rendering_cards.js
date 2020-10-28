@@ -1,3 +1,5 @@
+'use strict';
+
 const cardsRestaurants = document.querySelector(`.cards-restaurants`);
 const containerPromo = document.querySelector(`.container-promo`);
 const restaurants = document.querySelector(`.restaurants`);
@@ -5,18 +7,25 @@ const menu = document.querySelector(`.menu`);
 const logo = document.querySelector(`.logo`);
 const cardsMenu = document.querySelector(`.cards-menu`);
 
+const renderPizzaCards = () => {
+    cardsMenu.innerHTML = '';
+    renderPizzaCard();
+    renderPizzaCard();
+    renderPizzaCard();
+};
+
+// Показать товары
 const openGoods = (evt) => {
     const target = evt.target;
     const restaurant = target.closest(`.card-restaurant`);
 
     if (restaurant) {
+        // Прячем/показываем нужные модули
         containerPromo.classList.add(`hide`);
         restaurants.classList.add(`hide`);
         menu.classList.remove(`hide`);
 
-        renderPizzaCard();
-        renderPizzaCard();
-        renderPizzaCard();
+        renderPizzaCards(); // Рендерим список пиццы
     }
 };
 
@@ -46,7 +55,7 @@ const renderPizzaCard = () => {
 };
 
 // Добавляет карточку товара
-const createRestaurantCard = () => {
+const renderRestaurantCard = () => {
     const card = `<a class="card card-restaurant">
         <img src="img/tanuki/preview.jpg" alt="image" class="card-image" />
         <div class="card-text">
@@ -67,7 +76,7 @@ const createRestaurantCard = () => {
     cardsRestaurants.insertAdjacentHTML(`beforeend`, card);
 };
 
-createRestaurantCard();
+renderRestaurantCard();
 
 // Клик по логотипу
 const logoClickHandler = () => {
