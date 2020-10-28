@@ -7,31 +7,9 @@ const menu = document.querySelector(`.menu`);
 const logo = document.querySelector(`.logo`);
 const cardsMenu = document.querySelector(`.cards-menu`);
 
-const renderPizzaCards = () => {
-    cardsMenu.innerHTML = '';
-    renderPizzaCard();
-    renderPizzaCard();
-    renderPizzaCard();
-};
-
-// Показать товары
-const openGoods = (evt) => {
-    const target = evt.target;
-    const restaurant = target.closest(`.card-restaurant`);
-
-    if (restaurant) {
-        // Прячем/показываем нужные модули
-        containerPromo.classList.add(`hide`);
-        restaurants.classList.add(`hide`);
-        menu.classList.remove(`hide`);
-
-        renderPizzaCards(); // Рендерим список пиццы
-    }
-};
-
 // Создание карточки пиццы
 const renderPizzaCard = () => {
-    const pizzaCard = `<div class="card">
+    return `<div class="card">
       <img src="img/pizza-plus/pizza-classic.jpg" alt="image" class="card-image" />
       <div class="card-text">
           <div class="card-heading">
@@ -50,13 +28,37 @@ const renderPizzaCard = () => {
           </div>
       </div>
     </div>`;
+};
+
+// Рендерим все карточки пиццы
+const renderPizzaCards = () => {
+    cardsMenu.innerHTML = '';
+
+    const pizzaCard = renderPizzaCard();
 
     cardsMenu.insertAdjacentHTML(`beforeend`, pizzaCard);
+    cardsMenu.insertAdjacentHTML(`beforeend`, pizzaCard);
+    cardsMenu.insertAdjacentHTML(`beforeend`, pizzaCard);
+};
+
+// Показать товары
+const openGoods = (evt) => {
+    const target = evt.target;
+    const restaurant = target.closest(`.card-restaurant`);
+
+    if (restaurant) {
+        // Прячем/показываем нужные модули
+        containerPromo.classList.add(`hide`);
+        restaurants.classList.add(`hide`);
+        menu.classList.remove(`hide`);
+
+        renderPizzaCards(); // Рендерим список пиццы
+    }
 };
 
 // Добавляет карточку товара
 const renderRestaurantCard = () => {
-    const card = `<a class="card card-restaurant">
+    return `<a class="card card-restaurant">
         <img src="img/tanuki/preview.jpg" alt="image" class="card-image" />
         <div class="card-text">
             <div class="card-heading">
@@ -72,11 +74,16 @@ const renderRestaurantCard = () => {
             </div>
         </div>
       </a>`;
-
-    cardsRestaurants.insertAdjacentHTML(`beforeend`, card);
 };
 
-renderRestaurantCard();
+// Рендерит все карточки ресторанов
+const renderRestaurantCards = () => {
+    const restaurantCard = renderRestaurantCard();
+
+    cardsRestaurants.insertAdjacentHTML(`beforeend`, restaurantCard);
+    cardsRestaurants.insertAdjacentHTML(`beforeend`, restaurantCard);
+    cardsRestaurants.insertAdjacentHTML(`beforeend`, restaurantCard);
+};
 
 // Клик по логотипу
 const logoClickHandler = () => {
@@ -85,5 +92,12 @@ const logoClickHandler = () => {
     menu.classList.add(`hide`);
 };
 
-cardsRestaurants.addEventListener(`click`, openGoods);
-logo.addEventListener(`click`, logoClickHandler);
+// Стартовая функция рендеринга контента
+const start = () => {
+    renderRestaurantCards(); // Рендерит карточки ресторанов
+
+    cardsRestaurants.addEventListener(`click`, openGoods);
+    logo.addEventListener(`click`, logoClickHandler);
+};
+
+start();

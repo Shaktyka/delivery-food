@@ -15,7 +15,7 @@ let isAuth = false;
 let login = localStorage.getItem('delivery');
 let pass = '';
 
-toggleModal = () => {
+const toggleModal = () => {
     modal.classList.toggle(`is-open`);
 };
 
