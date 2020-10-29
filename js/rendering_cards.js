@@ -1,5 +1,7 @@
 'use strict';
 
+const PARTNERS_LINK = `./db/partners.json`;
+
 const cardsRestaurants = document.querySelector(`.cards-restaurants`);
 const containerPromo = document.querySelector(`.container-promo`);
 const restaurants = document.querySelector(`.restaurants`);
@@ -42,20 +44,20 @@ const renderPizzaCards = () => {
 };
 
 // Добавляет карточку товара
-const renderRestaurantCard = () => {
+const renderRestaurantCard = (data) => {
     return `<a class="card card-restaurant">
-        <img src="img/tanuki/preview.jpg" alt="image" class="card-image" />
+        <img src="${data.image}" alt="image" class="card-image" />
         <div class="card-text">
             <div class="card-heading">
-                <h3 class="card-title">Тануки</h3>
-                <span class="card-tag tag">60 мин</span>
+                <h3 class="card-title">${data.name}</h3>
+                <span class="card-tag tag">${data.time_of_delivery} мин</span>
             </div>
             <div class="card-info">
                 <div class="rating">
-                    4.5
+                    ${data.stars}
                 </div>
-                <div class="price">От 1 200 ₽</div>
-                <div class="category">Суши, роллы</div>
+                <div class="price">От ${data.price} ₽</div>
+                <div class="category">${data.kitchen}</div>
             </div>
         </div>
       </a>`;
@@ -84,12 +86,11 @@ const openGoods = (evt) => {
 };
 
 // Рендерит все карточки ресторанов
-const renderRestaurantCards = () => {
-    const restaurantCard = renderRestaurantCard();
-
-    cardsRestaurants.insertAdjacentHTML(`beforeend`, restaurantCard);
-    cardsRestaurants.insertAdjacentHTML(`beforeend`, restaurantCard);
-    cardsRestaurants.insertAdjacentHTML(`beforeend`, restaurantCard);
+const renderRestaurantCards = (restaurantsData) => {
+    restaurantsData.forEach((dataObj) => {
+        const restaurantCard = renderRestaurantCard(dataObj);
+        cardsRestaurants.insertAdjacentHTML(`beforeend`, restaurantCard);
+    });
 };
 
 // Клик по логотипу
@@ -101,7 +102,10 @@ const logoClickHandler = () => {
 
 // Стартовая функция рендеринга контента
 const start = () => {
-    renderRestaurantCards(); // Рендерит карточки ресторанов
+    getData(PARTNERS_LINK)
+        .then((res) => {
+            renderRestaurantCards(res); // Рендерит карточки ресторанов
+        });
 
     cardsRestaurants.addEventListener(`click`, openGoods);
     logo.addEventListener(`click`, logoClickHandler);
