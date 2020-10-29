@@ -8,6 +8,9 @@ const restaurants = document.querySelector(`.restaurants`);
 const menu = document.querySelector(`.menu`);
 const logo = document.querySelector(`.logo`);
 const cardsMenu = document.querySelector(`.cards-menu`);
+const sectionHeading = document.querySelector(`.menu .section-heading`);
+
+let restaurantList = []; // Список ресторанов
 
 // Создание карточки пиццы
 const renderPizzaCard = (data) => {
@@ -37,7 +40,6 @@ const renderPizzaCard = (data) => {
 
 // Рендерим все карточки пиццы
 const renderPizzaCards = (productsData) => {
-    console.log(productsData);
     cardsMenu.innerHTML = '';
 
     productsData.forEach((prodObj) => {
@@ -68,6 +70,21 @@ const renderRestaurantCard = (data) => {
       </a>`;
 };
 
+// Прописываем данные ресторана в заголовок списка продуктов
+const setRestaurantData = (restaurantObj) => {
+    const { name, kitchen, price, stars } = restaurantObj;
+
+    sectionHeading.querySelector(`.restaurant-title`).textContent = name;
+    sectionHeading.querySelector(`.rating`).textContent = stars;
+    sectionHeading.querySelector(`.price`).textContent = price;
+    sectionHeading.querySelector(`.category`).textContent = kitchen;
+};
+
+// Получаем объект с данными ресторана из массива
+const getRestaurantObject = (restName) => {
+    return restaurantList.find((item) => item.name === restName) || ``;
+};
+
 // Показать товары
 const openGoods = (evt) => {
 
@@ -84,7 +101,6 @@ const openGoods = (evt) => {
         // Прячем/показываем нужные модули
         containerPromo.classList.add(`hide`);
         restaurants.classList.add(`hide`);
-        menu.classList.remove(`hide`);
 
         // Получаем данные о продуктах по ссылке
         const productsLink = `./db/${restaurant.dataset.products}`;
@@ -92,6 +108,12 @@ const openGoods = (evt) => {
             .then((res) => {
                 renderPizzaCards(res); // Рендерим список пиццы
             });
+
+        // Передаём данные ресторана для записи в заголовок списка продуктов
+        const restName = restaurant.querySelector(`.card-title`).textContent;
+        setRestaurantData(getRestaurantObject(restName));
+
+        menu.classList.remove(`hide`);
     }
 };
 
@@ -114,6 +136,7 @@ const logoClickHandler = () => {
 const start = () => {
     getData(PARTNERS_LINK)
         .then((res) => {
+            restaurantList = res;
             renderRestaurantCards(res); // Рендерит карточки ресторанов
         });
 
