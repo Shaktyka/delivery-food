@@ -10,15 +10,18 @@ const logo = document.querySelector(`.logo`);
 const cardsMenu = document.querySelector(`.cards-menu`);
 
 // Создание карточки пиццы
-const renderPizzaCard = () => {
-    return `<div class="card">
-      <img src="img/pizza-plus/pizza-classic.jpg" alt="image" class="card-image" />
+const renderPizzaCard = (data) => {
+    const { id, description, image, name, price } = data;
+
+    return `<div class="card" id="${id}">
+      <img src="${image}" alt="image" class="card-image" />
       <div class="card-text">
           <div class="card-heading">
-              <h3 class="card-title card-title-reg">Пицца Классика</h3>
+              <h3 class="card-title card-title-reg">${name}</h3>
           </div>
           <div class="card-info">
-              <div class="ingredients">Соус томатный, сыр «Моцарелла», сыр «Пармезан», ветчина, салями, грибы.
+              <div class="ingredients">
+                ${description}
               </div>
           </div>
           <div class="card-buttons">
@@ -26,33 +29,33 @@ const renderPizzaCard = () => {
                 <span class="button-card-text">В корзину</span>
                 <span class="button-cart-svg"></span>
               </button>
-              <strong class="card-price-bold">510 ₽</strong>
+              <strong class="card-price-bold">${price} ₽</strong>
           </div>
       </div>
     </div>`;
 };
 
 // Рендерим все карточки пиццы
-const renderPizzaCards = () => {
+const renderPizzaCards = (productsData) => {
+    console.log(productsData);
     cardsMenu.innerHTML = '';
 
-    const pizzaCard = renderPizzaCard();
-
-    cardsMenu.insertAdjacentHTML(`beforeend`, pizzaCard);
-    cardsMenu.insertAdjacentHTML(`beforeend`, pizzaCard);
-    cardsMenu.insertAdjacentHTML(`beforeend`, pizzaCard);
+    productsData.forEach((prodObj) => {
+        const pizzaCard = renderPizzaCard(prodObj);
+        cardsMenu.insertAdjacentHTML(`beforeend`, pizzaCard);
+    });
 };
 
 // Добавляет карточку товара
 const renderRestaurantCard = (data) => {
-    const { image, name, time_of_delivery, kitchen, price, stars } = data;
+    const { image, name, time_of_delivery: deliveryTime, kitchen, price, stars, products } = data;
 
-    return `<a class="card card-restaurant">
+    return `<a class="card card-restaurant" data-products="${products}">
         <img src="${image}" alt="image" class="card-image" />
         <div class="card-text">
             <div class="card-heading">
                 <h3 class="card-title">${name}</h3>
-                <span class="card-tag tag">${time_of_delivery} мин</span>
+                <span class="card-tag tag">${deliveryTime} мин</span>
             </div>
             <div class="card-info">
                 <div class="rating">
@@ -83,7 +86,12 @@ const openGoods = (evt) => {
         restaurants.classList.add(`hide`);
         menu.classList.remove(`hide`);
 
-        renderPizzaCards(); // Рендерим список пиццы
+        // Получаем данные о продуктах по ссылке
+        const productsLink = `./db/${restaurant.dataset.products}`;
+        getData(productsLink)
+            .then((res) => {
+                renderPizzaCards(res); // Рендерим список пиццы
+            });
     }
 };
 
