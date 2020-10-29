@@ -45,19 +45,21 @@ const renderPizzaCards = () => {
 
 // Добавляет карточку товара
 const renderRestaurantCard = (data) => {
+    const { image, name, time_of_delivery, kitchen, price, stars } = data;
+
     return `<a class="card card-restaurant">
-        <img src="${data.image}" alt="image" class="card-image" />
+        <img src="${image}" alt="image" class="card-image" />
         <div class="card-text">
             <div class="card-heading">
-                <h3 class="card-title">${data.name}</h3>
-                <span class="card-tag tag">${data.time_of_delivery} мин</span>
+                <h3 class="card-title">${name}</h3>
+                <span class="card-tag tag">${time_of_delivery} мин</span>
             </div>
             <div class="card-info">
                 <div class="rating">
-                    ${data.stars}
+                    ${stars}
                 </div>
-                <div class="price">От ${data.price} ₽</div>
-                <div class="category">${data.kitchen}</div>
+                <div class="price">От ${price} ₽</div>
+                <div class="category">${kitchen}</div>
             </div>
         </div>
       </a>`;
