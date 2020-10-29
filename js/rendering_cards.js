@@ -76,7 +76,7 @@ const setRestaurantData = (restaurantObj) => {
 
     sectionHeading.querySelector(`.restaurant-title`).textContent = name;
     sectionHeading.querySelector(`.rating`).textContent = stars;
-    sectionHeading.querySelector(`.price`).textContent = price;
+    sectionHeading.querySelector(`.price`).textContent = `От ${price} ₽`;
     sectionHeading.querySelector(`.category`).textContent = kitchen;
 };
 
