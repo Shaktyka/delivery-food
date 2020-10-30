@@ -11,7 +11,15 @@ searchInput.addEventListener(`keypress`, (evt) => {
 
     if (code === 13) {
         const searchValue = evt.target.value.trim();
-        // console.log(searchValue);
+        if (!searchValue) {
+            evt.target.style.outline = `2px solid red`;
+            evt.target.value = `Введите запрос`;
+            setTimeout(() => {
+                evt.target.style.outline = `none`;
+                evt.target.value = ``;
+            }, 1500);
+            return;
+        }
 
         getData(PARTNERS_LINK)
             .then((data) => {
