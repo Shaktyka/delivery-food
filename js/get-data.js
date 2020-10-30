@@ -1,3 +1,5 @@
+'use strict';
+
 // Получаем данные (асинхронно)
 const getData = async(url) => {
     const response = await fetch(url);
