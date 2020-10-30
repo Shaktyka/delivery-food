@@ -8,9 +8,11 @@ const renderSearchProducts = (array) => {
 
 searchInput.addEventListener(`keypress`, (evt) => {
     const code = evt.charCode;
-    let products = [];
 
     if (code === 13) {
+        const searchValue = evt.target.value.trim();
+        // console.log(searchValue);
+
         getData(PARTNERS_LINK)
             .then((data) => {
                 return data.map((partner) => {
@@ -23,6 +25,12 @@ searchInput.addEventListener(`keypress`, (evt) => {
                 linksArr.forEach((link) => {
                     getData(`./db/${link}`)
                         .then((data) => {
+                            const searchResult = data.filter((item) => {
+                                const itemName = item.name.toLowerCase();
+                                const searchStr = searchValue.toLowerCase();
+                                return itemName.includes(searchStr);
+                            });
+
                             // Показываем нужные блоки
                             containerPromo.classList.add(`hide`);
                             restaurants.classList.add(`hide`);
@@ -32,9 +40,8 @@ searchInput.addEventListener(`keypress`, (evt) => {
                             sectionHeading.querySelector(`.rating`).textContent = ``;
                             sectionHeading.querySelector(`.price`).textContent = `Любая цена`;
                             sectionHeading.querySelector(`.category`).textContent = `Любая кухня`;
-                            // Рендерим карточки
-                            products = [...products, ...data];
-                            renderSearchProducts(products);
+                            // Рендерим результат поиска
+                            renderSearchProducts(searchResult);
                         });
                 });
             });
