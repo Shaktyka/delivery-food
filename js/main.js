@@ -21,15 +21,12 @@ let isAuth = false;
 let login = localStorage.getItem('delivery');
 let pass = '';
 
-const toggleModal = () => {
-    modal.classList.toggle(`is-open`);
-};
-
 // Закрытие модалки корзины
 const closeCart = () => {
     modal.classList.remove(`is-open`);
     closeCartBtn.removeEventListener(`click`, closeCart);
     clearCartBtn.removeEventListener(`click`, clearCart);
+    cartBody.removeEventListener(`click`, cardBodyClickHandler)
 };
 
 // Очистка корзины
@@ -79,9 +76,6 @@ const renderCart = () => {
 // Обработчик кликов по блоку с товарами корзины
 const cardBodyClickHandler = (evt) => {
     const target = evt.target;
-    // let foodId = null;
-    // const foodRow = target.closest(`.food-row`);
-    // const foodId = foodRow.id;
 
     if (target.classList.contains(`counter-button`)) {
         const food = cartList.find((item) => item.id === target.dataset.id);
@@ -97,7 +91,7 @@ const cardBodyClickHandler = (evt) => {
 // Открытие модалки корзины
 const openCart = () => {
     renderCart(); // Рендерим корзину
-    cartBody.addEventListener(`click`, cardBodyClickHandler) // Вешаем обработчик клика на блок с товарами
+    cartBody.addEventListener(`click`, cardBodyClickHandler); // Вешаем обработчик клика на блок с товарами
 
     modal.classList.add(`is-open`);
     closeCartBtn.addEventListener(`click`, closeCart);
@@ -105,7 +99,6 @@ const openCart = () => {
 };
 
 cartButton.addEventListener(`click`, openCart);
-close.addEventListener(`click`, toggleModal);
 
 // Переключить модалку авторизации
 const toggleModalAuth = (evt) => {
