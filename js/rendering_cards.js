@@ -95,7 +95,7 @@ const openGoods = (evt) => {
 
     if (restaurant) {
         // Проверяем авторизацию
-        if (!isAuth) {
+        if (!login) {
             toggleModalAuth();
             return;
         }

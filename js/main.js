@@ -17,8 +17,7 @@ const loginInput = modalAuth.querySelector(`#login`);
 const passInput = modalAuth.querySelector(`#password`);
 const buttonOut = document.querySelector(`.button-out`);
 const userName = document.querySelector(`.user-name`);
-let isAuth = false;
-let login = localStorage.getItem('delivery');
+let login = localStorage.getItem(`delivery`);
 let pass = '';
 
 // Закрытие модалки корзины
@@ -126,7 +125,6 @@ const logout = () => {
     userName.textContent = '';
     userName.style.display = `none`;
     cartButton.style.display = `none`;
-    isAuth = false;
     login = null;
     pass = '';
     checkAuth();
@@ -145,7 +143,6 @@ const authorization = (evt) => {
 
     localStorage.setItem('delivery', login);
 
-    isAuth = true;
     toggleModalAuth();
     loginForm.reset();
 
@@ -188,7 +185,7 @@ const isAuthorized = () => {
 
 // Проверка авторизации
 const checkAuth = () => {
-    if (isAuth) {
+    if (login) {
         isAuthorized();
     } else {
         isNotAuthorized();
