@@ -11,6 +11,8 @@ const cardsMenu = document.querySelector(`.cards-menu`);
 const sectionHeading = document.querySelector(`.menu .section-heading`);
 
 let restaurantList = []; // Список ресторанов
+let productsList = []; // Список продуктов
+const cartList = []; // Корзина
 
 // Создание карточки пиццы
 const renderPizzaCard = (data) => {
@@ -32,7 +34,7 @@ const renderPizzaCard = (data) => {
                 <span class="button-card-text">В корзину</span>
                 <span class="button-cart-svg"></span>
               </button>
-              <strong class="card-price-bold">${price} ₽</strong>
+              <strong class="card-price card-price-bold">${price} ₽</strong>
           </div>
       </div>
     </div>`;
@@ -106,6 +108,7 @@ const openGoods = (evt) => {
         const productsLink = `./db/${restaurant.dataset.products}`;
         getData(productsLink)
             .then((res) => {
+                productsList = res; // Сохраняем список продуктов
                 renderPizzaCards(res); // Рендерим список пиццы
             });
 
@@ -132,6 +135,33 @@ const logoClickHandler = () => {
     menu.classList.add(`hide`);
 };
 
+// Клик по карточке в меню
+const addToCart = (evt) => {
+    const card = evt.target.closest(`.card`);
+
+    if (card) {
+        // const title = card.querySelector(`.card-title`).textContent;
+        // const price = card.querySelector(`.card-price`).textContent;
+
+        const productId = card.id;
+
+        // Ищем в корзине объект с id = id продукта
+        const food = cartList.find((item) => {
+            return item.id === productId;
+        });
+
+        if (food) {
+            food.count += 1;
+        } else {
+            // Иначе находим данные в массиве продуктов и записываем объект в массив корзины
+            const productObj = productsList.find((item) => item.id === productId);
+            const productToCart = {...productObj, count: 1 };
+            cartList.push(productToCart);
+        }
+        console.log(cartList);
+    }
+};
+
 // Стартовая функция рендеринга контента
 const start = () => {
     getData(PARTNERS_LINK)
@@ -142,6 +172,7 @@ const start = () => {
 
     cardsRestaurants.addEventListener(`click`, openGoods);
     logo.addEventListener(`click`, logoClickHandler);
+    cardsMenu.addEventListener(`click`, addToCart);
 };
 
 start();

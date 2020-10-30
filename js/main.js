@@ -47,6 +47,7 @@ const logout = () => {
     buttonOut.style.display = `none`;
     userName.textContent = '';
     userName.style.display = `none`;
+    cartButton.style.display = `none`;
     isAuth = false;
     login = null;
     pass = '';
@@ -99,7 +100,8 @@ const isAuthorized = () => {
     console.log('Авторизован');
 
     authBtn.style.display = `none`;
-    buttonOut.style.display = `block`;
+    buttonOut.style.display = `flex`;
+    cartButton.style.display = `flex`;
     userName.textContent = login;
     userName.style.display = `inline`;
 
