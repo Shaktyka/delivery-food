@@ -12,7 +12,7 @@ const sectionHeading = document.querySelector(`.menu .section-heading`);
 
 let restaurantList = []; // Список ресторанов
 let productsList = []; // Список продуктов
-const cartList = []; // Корзина
+let cartList = []; // Корзина
 
 // Создание карточки пиццы
 const renderPizzaCard = (data) => {
@@ -158,7 +158,6 @@ const addToCart = (evt) => {
             const productToCart = {...productObj, count: 1 };
             cartList.push(productToCart);
         }
-        console.log(cartList);
     }
 };
 
