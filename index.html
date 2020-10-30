@@ -7,6 +7,7 @@
     <title>Delivery Food — доставка еды на дом</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic" rel="stylesheet" />
     <link rel="stylesheet" href="css/normalize.css" />
+    <link href="https://cdn.jsdelivr.net/npm/suggestions-jquery@20.3.0/dist/css/suggestions.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -18,7 +19,7 @@
                 <img src="img/icon/logo.svg" alt="Logo" />
             </a>
             <label class="address">
-				<input type="text" class="input input-address" placeholder="Адрес доставки"/>
+				<input type="text" class="input input-address" id="address" placeholder="Адрес доставки"/>
 			</label>
             <div class="buttons">
                 <span class="user-name"></span>
@@ -176,12 +177,24 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/suggestions-jquery@20.3.0/dist/js/jquery.suggestions.min.js"></script>
     <script src="js/swiper-bundle.min.js"></script>
     <script src="js/disable-scroll.js"></script>
     <script src="js/get-data.js"></script>
     <script src="js/main.js"></script>
     <script src="js/rendering_cards.js"></script>
     <script src="js/slider.js"></script>
+    <script>
+        $("#address").suggestions({
+            token: "e37d678610021cbb082e393d94cbd83b08c89f5b",
+            type: "ADDRESS",
+            /* Вызывается, когда пользователь выбирает одну из подсказок */
+            onSelect: function(suggestion) {
+                // console.log(suggestion);
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -19,7 +19,7 @@ const renderPizzaCard = (data) => {
     const { id, description, image, name, price } = data;
 
     return `<div class="card" id="${id}">
-      <img src="${image}" alt="image" class="card-image" />
+      <img src="${image}" alt="${name}" class="card-image" />
       <div class="card-text">
           <div class="card-heading">
               <h3 class="card-title card-title-reg">${name}</h3>
@@ -50,12 +50,12 @@ const renderPizzaCards = (productsData) => {
     });
 };
 
-// Добавляет карточку товара
+// Добавляет карточку ресторана
 const renderRestaurantCard = (data) => {
     const { image, name, time_of_delivery: deliveryTime, kitchen, price, stars, products } = data;
 
     return `<a class="card card-restaurant" data-products="${products}">
-        <img src="${image}" alt="image" class="card-image" />
+        <img src="${image}" alt="${name}" class="card-image" />
         <div class="card-text">
             <div class="card-heading">
                 <h3 class="card-title">${name}</h3>
@@ -140,9 +140,6 @@ const addToCart = (evt) => {
     const card = evt.target.closest(`.card`);
 
     if (card) {
-        // const title = card.querySelector(`.card-title`).textContent;
-        // const price = card.querySelector(`.card-price`).textContent;
-
         const productId = card.id;
 
         // Ищем в корзине объект с id = id продукта
