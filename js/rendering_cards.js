@@ -41,10 +41,8 @@ const renderPizzaCard = (data) => {
 };
 
 // Рендерим все карточки пиццы
-const renderPizzaCards = (productsData) => {
-    cardsMenu.innerHTML = '';
-
-    productsData.forEach((prodObj) => {
+const renderPizzaCards = (products = []) => {
+    products.forEach((prodObj) => {
         const pizzaCard = renderPizzaCard(prodObj);
         cardsMenu.insertAdjacentHTML(`beforeend`, pizzaCard);
     });
@@ -109,6 +107,7 @@ const openGoods = (evt) => {
         getData(productsLink)
             .then((res) => {
                 productsList = res; // Сохраняем список продуктов
+                cardsMenu.innerHTML = '';
                 renderPizzaCards(res); // Рендерим список пиццы
             });
 
