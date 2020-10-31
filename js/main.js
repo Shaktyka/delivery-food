@@ -116,6 +116,13 @@ const closeModalAuth = () => {
     enableScroll();
 };
 
+// Возвращает главный интерфейс (после логаута)
+const returnMain = () => {
+    containerPromo.classList.remove(`hide`);
+    restaurants.classList.remove(`hide`);
+    menu.classList.add(`hide`);
+};
+
 // Логаут
 const logout = () => {
     localStorage.removeItem(`delivery`);
@@ -128,6 +135,7 @@ const logout = () => {
     login = null;
     pass = '';
     checkAuth();
+    returnMain();
 };
 
 // Логин
