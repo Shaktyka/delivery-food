@@ -90,10 +90,20 @@ button {
     margin-right: 10px;
 }
 
+.button-primary:disabled {
+    background: #99caf7;
+}
+
 .button-primary:hover {
     background: #ffffff;
     border: 1px solid #d9d9d9;
     color: #595959;
+}
+
+.button-primary:disabled:hover {
+    background: #99caf7;
+    border: 1px solid #1890ff;
+    color: #fff;
 }
 
 .button-icon {
